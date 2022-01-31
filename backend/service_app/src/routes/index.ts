@@ -1,10 +1,18 @@
-import { Router, Request, Response } from "express";
+import { Application } from "express";
+import { AppRoutesConfig } from "../configs/app.routes.config";
 
-const router = Router();
+// individual module's routes
+import { ProjectRoutes } from "../modules/project/project.routes";
+import { EmployeeRoutes } from "../modules/employee/employee.routes";
 
-// default route
-router.use("/", (req: Request, res: Response) => {
-  res.send("Service-app is up and running...!");
-});
+export class AppRouter {
+  routes: Array<AppRoutesConfig> = [];
+  constructor(private app: Application) {}
 
-export default router;
+  initialize(): Array<AppRoutesConfig> {
+    this.routes.push(new ProjectRoutes(this.app));
+    this.routes.push(new EmployeeRoutes(this.app));
+
+    return this.routes;
+  }
+}
