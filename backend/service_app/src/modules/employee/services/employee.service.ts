@@ -1,10 +1,10 @@
 import { IService } from "../../../common/interface/service.interface";
 import { EmployeeDto } from "../dto/employee.dto";
-import ProjectRepository from "../Repository/employee.repository";
+import employeeRepository from "../Repository/employee.repository";
 
 class ProjectService implements IService {
   async create(param: EmployeeDto) {
-    return ProjectRepository.addEmployee(param);
+    return employeeRepository.addEmployee(param);
   }
 
   async update(param: EmployeeDto) {
@@ -16,11 +16,16 @@ class ProjectService implements IService {
   }
 
   async list(page: number, size: number) {
-    return ProjectRepository.getEmployees();
+    return employeeRepository.getEmployees();
   }
 
   async getById(id: number) {
-    return ProjectRepository.getEmployeeById(id);
+    return employeeRepository.getEmployeeById(id);
+  }
+
+  // TODO: remove this when use of an persistent storage
+  async listByIds(ids: string) {
+    return employeeRepository.getEmployeeByIds(ids);
   }
 }
 

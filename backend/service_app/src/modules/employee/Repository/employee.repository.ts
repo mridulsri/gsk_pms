@@ -3,7 +3,7 @@ class EmployeeRepository {
   employees: Array<EmployeeDto> = [];
 
   constructor() {
-    console.log("initiated project repository");
+    console.log("initiated employee repository");
   }
 
   // add project in persistence store
@@ -21,6 +21,13 @@ class EmployeeRepository {
   // get project from persistence store
   async getEmployeeById(employeeId: number) {
     return this.employees.find((emp: { id: number }) => emp.id === employeeId);
+  }
+
+  // get all projects from persistence store
+  async getEmployeeByIds(employeeIds: string) {
+    return this.employees.filter(
+      (obj) => employeeIds.indexOf(obj.id.toString()) !== -1
+    );
   }
 }
 
