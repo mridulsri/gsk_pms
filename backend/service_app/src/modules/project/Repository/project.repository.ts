@@ -50,7 +50,7 @@ class ProjectRepository {
   // get project's employee from persistence store
   async getProjectEmployees(projectId: number) {
     const project = await this.getProjectById(projectId);
-    return project && project.employees ? project.employees.split(",") : [];
+    return project && project.employees ? project.employees : [];
   }
 }
 

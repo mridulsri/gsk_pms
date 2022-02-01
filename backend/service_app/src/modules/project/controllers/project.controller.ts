@@ -1,3 +1,4 @@
+import { ProjectDto } from "./../../project/dto/project.dto";
 import { Request, Response } from "express";
 import projectService from "../services/project.service";
 import employeeService from "../../employee/services/employee.service";
@@ -7,18 +8,8 @@ class ProjectController {
     const page = Number(req.query.page) || 1;
     const size = Number(req.query.size) || 20;
     const projects = await projectService.list(page, size);
-    // TODO: Need to refactor once included persistent database
-    let response: Array<any> = [];
-    for (const project of projects) {
-      if (project.employees?.length) {
-        const associatedEmployee = await employeeService.listByIds(
-          project.employees
-        );
-        response.push({ ...project, employees: associatedEmployee });
-      }
-    }
     res.status(200).send({
-      result: response,
+      result: projects,
       message: projects.length > 0 ? "records found" : "records not found",
     });
   }
@@ -28,17 +19,9 @@ class ProjectController {
       const projectId = Number(req.params.id || req.query.id);
       const project = await projectService.getById(projectId);
       if (project) {
-        // TODO: Need to refactor once included persistent database
-        let response: object = {};
-        if (project.employees?.length) {
-          const associatedEmployee = await employeeService.listByIds(
-            project.employees
-          );
-          response = { ...project, employees: associatedEmployee };
-        }
-        res.status(200).send({ result: response, message: "record found" });
+        res.status(200).send({ result: project, message: "record found" });
       } else {
-        res.status(404).send({
+        res.status(200).send({
           result: null,
           message: "no record is available",
         });
@@ -66,15 +49,8 @@ class ProjectController {
     try {
       const project = await projectService.update(req.body);
       if (project !== null) {
-        let response: object = { ...project };
-        if (project.employees?.length) {
-          const associatedEmployee = await employeeService.listByIds(
-            project.employees
-          );
-          response = { ...project, employees: associatedEmployee };
-        }
         res.status(200).send({
-          result: response,
+          result: project,
           message: "record updated",
         });
       } else {
@@ -96,15 +72,8 @@ class ProjectController {
       if (project) {
         project.employees = req.body.employees;
         const updatedProject = await projectService.update(project);
-        let response: object = { ...project };
-        if (updatedProject && updatedProject.employees?.length) {
-          const associatedEmployee = await employeeService.listByIds(
-            updatedProject.employees
-          );
-          response = { ...project, employees: associatedEmployee };
-        }
         res.status(200).send({
-          result: response,
+          result: updatedProject,
           message: "record updated",
         });
       } else {

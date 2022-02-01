@@ -22,11 +22,6 @@ class ProjectService implements IService {
   async getById(id: number) {
     return employeeRepository.getEmployeeById(id);
   }
-
-  // TODO: remove this when use of an persistent storage
-  async listByIds(ids: string) {
-    return employeeRepository.getEmployeeByIds(ids);
-  }
 }
 
 export default new ProjectService();

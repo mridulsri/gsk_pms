@@ -1,5 +1,11 @@
 <template>
-  <div><project-item /></div>
+  <div>
+    <v-row>
+      <v-col cols="4" v-for="project in items" :key="project.id">
+        <project-item :project="project" />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -9,22 +15,8 @@ export default {
   components: {
     ProjectItem,
   },
-  data() {
-    return {
-      projects: [],
-    };
-  },
-  mounted() {
-    for (let index = 1; index <= 4; index++) {
-      this.projects.push({
-        name: `Project 10${index}`,
-        employee: [
-          { name: "Mridul Srivastava", src: "/img/user.png" },
-          { name: "Advika", src: "" },
-          { name: "Pushpita Chanda", src: "/img/user.png" },
-        ],
-      });
-    }
+  props: {
+    items: Array,
   },
 };
 </script>

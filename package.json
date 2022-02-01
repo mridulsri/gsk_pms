@@ -1,0 +1,23 @@
+{
+  "name": "gsk_pms",
+  "version": "1.0.0",
+  "description": "A full-stack application for Project management system.",
+  "scripts": {
+    "client_app": "cd ./ui/client_app && npm install && npm run serve",
+    "service_app": "cd ./backend/service_app && npm install && npm run start",
+    "start": "concurrently --kill-others \"npm run service_app\" \"npm run client_app\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mridulsri: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@github.com/mridulsri/gsk_pms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mridulsri/gsk_pms/issues"
+  },
+  "homepage": "https://github.com/mridulsri/gsk_pms#readme",
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}

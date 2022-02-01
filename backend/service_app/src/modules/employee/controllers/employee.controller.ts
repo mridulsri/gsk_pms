@@ -33,11 +33,20 @@ class EmployeeController {
 
   async addEmployee(req: Request, res: Response) {
     try {
-      const employee = await employeeService.create(req.body);
-      res.status(201).send({
-        result: employee,
-        message: "record added",
-      });
+      const employeeId = Number(req.body.id);
+      const employee = await employeeService.getById(employeeId);
+      if (employee) {
+        res.status(409).send({
+          result: employee,
+          message: "Record already exists",
+        });
+      } else {
+        const newEmployee = await employeeService.create(req.body);
+        res.status(201).send({
+          result: newEmployee,
+          message: "record added",
+        });
+      }
     } catch (error) {
       //TODO: Need to add error handling
       res.status(500).send("service error...!");
