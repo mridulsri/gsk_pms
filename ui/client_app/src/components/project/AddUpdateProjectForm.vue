@@ -219,7 +219,7 @@ export default {
   mounted() {
     if (this.project) {
       this.name = this.project.name;
-      this.description = this.project.name;
+      this.description = this.project.description;
       this.date = this.project.startDate;
       this.selectedEmployees = this.project.employees;
     }
