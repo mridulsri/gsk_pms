@@ -11,7 +11,7 @@ class ProjectService implements IService {
     throw new Error("not Implemented");
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     throw new Error("not Implemented");
   }
 
@@ -19,7 +19,7 @@ class ProjectService implements IService {
     return employeeRepository.getEmployees();
   }
 
-  async getById(id: number) {
+  async getById(id: string) {
     return employeeRepository.getEmployeeById(id);
   }
 }

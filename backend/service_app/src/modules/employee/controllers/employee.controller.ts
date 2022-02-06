@@ -15,7 +15,7 @@ class EmployeeController {
 
   async getEmployeeById(req: Request, res: Response) {
     try {
-      const employeeId = Number(req.params.id || req.query.id);
+      const employeeId = (req.params.id || req.query.id) as string;
       const employee = await employeeService.getById(employeeId);
       if (employee) {
         res.status(200).send({ result: employee, message: "record found" });
@@ -33,7 +33,7 @@ class EmployeeController {
 
   async addEmployee(req: Request, res: Response) {
     try {
-      const employeeId = Number(req.body.id);
+      const employeeId = req.body.id;
       const employee = await employeeService.getById(employeeId);
       if (employee) {
         res.status(409).send({

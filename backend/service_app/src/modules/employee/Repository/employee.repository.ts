@@ -8,7 +8,7 @@ class EmployeeRepository {
 
   // add employee in persistence store
   async addEmployee(employee: EmployeeDto) {
-    employee.id = Number(employee.id);
+    employee.id = employee.id;
     this.employees.push(employee);
     return employee;
   }
@@ -19,9 +19,9 @@ class EmployeeRepository {
   }
 
   // get project from persistence store
-  async getEmployeeById(employeeId: number) {
+  async getEmployeeById(employeeId: string) {
     const employee = this.employees.find(
-      (emp: { id: number }) => emp.id === employeeId
+      (emp: { id: string }) => emp.id == employeeId
     );
     return employee;
     // return this.employees.find((emp: { id: number }) => emp.id === employeeId);

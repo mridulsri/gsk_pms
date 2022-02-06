@@ -21,7 +21,7 @@ class ProjectController {
       if (project) {
         res.status(200).send({ result: project, message: "record found" });
       } else {
-        res.status(200).send({
+        res.status(404).send({
           result: null,
           message: "no record is available",
         });
